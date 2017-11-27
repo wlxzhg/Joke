@@ -5,6 +5,7 @@ import cn.xiaozhigang.joke.service.JokeService;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,16 +23,21 @@ public class VisitorController {
     @ResponseBody
     public String queryJokeById(@PathVariable Integer id) {
         Joke joke = jokeService.findJokeById(id);
+
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("info","success");
         map.put("joke",joke.getContent());
-//        System.out.println(joke.toString());
-//        System.out.println(JSON.toJSONString(map));
+
         return JSON.toJSONString(map);
     }
 
     @RequestMapping("/index.html")
-    public String index() {
+    public String index(Model model) {
+        int minId = jokeService.findMinId();
+        int maxId = jokeService.findMaxId();
+        System.out.println("min:" + minId + " max:" + maxId);
+        model.addAttribute("minId", minId);
+        model.addAttribute("maxId", maxId);
         return "index";
     }
 }

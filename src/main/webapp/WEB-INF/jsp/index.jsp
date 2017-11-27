@@ -15,6 +15,8 @@
 </head>
 <body>
     <%--输入id:<input type="text" id="joke-id">--%>
+    <input id="min-id" type="hidden" value="${minId}">
+    <input id="max-id" type="hidden" value="${maxId}">
     <button id="joke-ok">讲个笑话</button>
     <p id="joke-p"></p>
 </body>
@@ -22,7 +24,9 @@
 <script type="text/javascript">
     $(function() {
         $('#joke-ok').on('click',function() {
-            var id = Math.round(Math.random() * 10000);
+            var min = $('#min-id').val();
+            var range = $('#max-id').val() - min;
+            var id = Math.round(min + Math.random() * range);
             $.ajax('query/joke/' + id,{
                 dataType:'JSON'
             }).done(function(data) {

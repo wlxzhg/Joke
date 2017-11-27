@@ -61,4 +61,14 @@ public class JokeDao {
         String sql = " UPDATE joke SET content = ? WHERE id = ? ";
         return jdbcTemplate.update(sql, joke.getContent(), joke.getId());
     }
+
+    public int findMaxId() {
+        String sql = " SELECT MAX(id) FROM joke ";
+        return jdbcTemplate.queryForObject(sql,Integer.class);
+    }
+
+    public int findMinId() {
+        String sql = " SELECT MIN(id) FROM joke ";
+        return jdbcTemplate.queryForObject(sql,Integer.class);
+    }
 }

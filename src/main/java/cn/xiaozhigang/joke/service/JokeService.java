@@ -13,4 +13,16 @@ public class JokeService {
     public Joke findJokeById(final Integer id) {
         return jokeDao.findJokeById(id);
     }
+
+    public int findMaxId() {
+        return jokeDao.findMaxId();
+    }
+
+    public int findMinId() {
+        return jokeDao.findMinId();
+    }
+
+    public int updateJokeById(Joke joke) {
+        return jokeDao.updateJokeById(joke);
+    }
 }
